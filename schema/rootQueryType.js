@@ -2,13 +2,16 @@ const graphql = require('graphql');
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull, GraphQLString } = graphql;
 
 //// TYPES
-const UserType = require('../types/userType');
-const MaterialListType = require('../types/materialListType')
-const MaterialType = require('../types/materialType')
+const UserType      = require('../types/userType');
+const MaterialType  = require('../types/materialType')
+const ColorType     = require('../types/colorType')
+const SupplierType  = require('../types/supplierType')
 
 //// DATA MODELS
-const User = require('../models/user')
-const Material = require('../models/materials')
+const User          = require('../models/user')
+const Material      = require('../models/materials')
+const Color         = require('../models/colors');
+const Supplier      = require('../models/suppliers');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -23,7 +26,7 @@ const RootQuery = new GraphQLObjectType({
         return await User.findById(id)
       }
     },
-    allSlabs: {
+    allMaterials: {
       type: new GraphQLList(MaterialType),
       args: { 
         id: { type: new GraphQLNonNull(GraphQLID) },
@@ -32,6 +35,30 @@ const RootQuery = new GraphQLObjectType({
       async resolve(parentValue, { id, token }, context ) {  
         
         return await Material.find({})
+        
+      }
+    },
+    allColors: {
+      type: new GraphQLList(ColorType),
+      args: { 
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        token: { type: GraphQLString }
+      },
+      async resolve(parentValue, { id, token }, context ) {  
+        
+        return await Color.find({})
+        
+      }
+    },
+    allSuppliers: {
+      type: new GraphQLList(SupplierType),
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        token: { type: GraphQLString }
+      },
+      async resolve(parentValue, { id, token }, context ) {  
+        
+        return await Supplier.find({})
         
       }
     }
