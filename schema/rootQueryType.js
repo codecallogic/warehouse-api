@@ -8,13 +8,15 @@ const MaterialType  = require('../types/materialType')
 const ColorType     = require('../types/colorType')
 const SupplierType  = require('../types/supplierType')
 const LocationType  = require('../types/locationType')
+const SlabType      = require('../types/slabType')
 
 //// DATA MODELS
 const User          = require('../models/user')
 const Material      = require('../models/materials')
-const Color         = require('../models/colors');
-const Supplier      = require('../models/suppliers');
+const Color         = require('../models/colors')
+const Supplier      = require('../models/suppliers')
 const Location      = require('../models/locations')
+const Slab          = require('../models/slabs')
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -30,7 +32,7 @@ const RootQuery = new GraphQLObjectType({
         try {
 
           const response = jwtMethod.verify(token, process.env.JWT_SECRET_LOGIN)
-          console.log(response)
+
           return await User.findById(id)
           
           
@@ -92,6 +94,20 @@ const RootQuery = new GraphQLObjectType({
       async resolve(parentValue, { id, token }, context ) {  
         
         return await Location.find({})
+        
+      }
+    },
+    allSlabs: {
+      type: new GraphQLList(SlabType),
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        token: { type: GraphQLString }
+      },
+      async resolve(parentValue, { id, token }, context ) {  
+        
+        // console.log(await Slab.find({}).populate(['material', 'color', 'supplier', 'location']))
+        
+        return await Slab.find({}).populate(['material', 'color', 'supplier', 'location'])
         
       }
     }

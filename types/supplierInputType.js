@@ -1,8 +1,8 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLInputObjectType, GraphQLString, GraphQLInt, GraphQLID, GraphQLList  } = graphql;
 
-const SupplierType = new GraphQLObjectType({
-  name:  'SupplierType',
+const SupplierInputType = new GraphQLInputObjectType({
+  name:  'SupplierInputType',
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -20,4 +20,4 @@ const SupplierType = new GraphQLObjectType({
   })
 });
 
-module.exports = SupplierType;
+module.exports = SupplierInputType

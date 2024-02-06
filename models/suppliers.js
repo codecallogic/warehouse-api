@@ -15,7 +15,7 @@ const Supplier = new Schema(
     type: String,
     default: '',
   },
-  tax_id: {
+  taxID: {
     type: String,
     default: '',
   },
@@ -23,15 +23,15 @@ const Supplier = new Schema(
     type: String,
     default: '',
   },
-  contact_name: {
+  contactName: {
     type: String,
     default: '',
   },
-  contact_phone: {
+  contactPhone: {
     type: String,
     default: '',
   },
-  contact_email: {
+  contactEmail: {
     type: String,
     default: '',
   },
@@ -47,7 +47,7 @@ const Supplier = new Schema(
     type: String,
     default: '',
   },
-  bank_note: {
+  bankNote: {
     type: String,
     default: '',
   }
