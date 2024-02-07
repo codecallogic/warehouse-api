@@ -58,7 +58,7 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
         
-        return Slab.createSlab( material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
+        return Slab.createSlab( material[0] ? material[0].id : '', color[0] ? color[0].id : '', supplier[0] ? supplier[0].id : '', grade[0] ? grade[0].name : '', finish[0] ? finish[0].name : '', location[0] ? location[0].id : '', quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
         
       }
     },
@@ -88,7 +88,7 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
         
-        return Slab.updateSlab(id, material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
+        return Slab.updateSlab(id, material[0] ? material[0].id : [], color[0] ? color[0].id : [], supplier[0] ? supplier[0].id : [], grade[0] ? grade[0].name : '', finish[0] ? finish[0].name : '', location[0] ? location[0].id : [], quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
         
       }
     },
