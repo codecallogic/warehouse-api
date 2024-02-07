@@ -33,10 +33,9 @@ const mutation = new GraphQLObjectType({
 
       }
     },
-    createSlab: {
+    newSlab: {
       type: MessageType,
       args: {
-        id: { type: GraphQLID },
         material: { type: new GraphQLList(MaterialInputType) },
         color: { type: new GraphQLList(ColorInputType) },
         supplier: { type: new GraphQLList(SupplierInputType) },
@@ -53,12 +52,13 @@ const mutation = new GraphQLObjectType({
         orderedStatus: { type: GraphQLString },
         receivedStatus: { type: GraphQLString },
         deliveredStatus: { type: GraphQLString },
+        lotNumber: { type: GraphQLString },
         qrCode: { type: GraphQLString },
         images: { type: new GraphQLList(ImageInputType)}
       },
-      resolve(parentValue, { id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
+      resolve(parentValue, { material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
         
-        return Slab.createSlab(id, material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
+        return Slab.createSlab( material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
         
       }
     },
