@@ -47,7 +47,7 @@ const mutation = new GraphQLObjectType({
         sizeOne: { type: GraphQLString },
         sizeTwo: { type: GraphQLString },
         thickness: { type: GraphQLString },
-        slabPrice: { type: GraphQLString },
+        priceSlab: { type: GraphQLString },
         priceSqft: { type: GraphQLString },
         block: { type: GraphQLString },
         orderedStatus: { type: GraphQLString },
@@ -56,9 +56,9 @@ const mutation = new GraphQLObjectType({
         qrCode: { type: GraphQLString },
         images: { type: new GraphQLList(ImageInputType)}
       },
-      resolve(parentValue, { id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, slabPrice, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
+      resolve(parentValue, { id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
         
-        return Slab.createSlab(id, material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, slabPrice, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
+        return Slab.createSlab(id, material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
         
       }
     },
@@ -76,7 +76,7 @@ const mutation = new GraphQLObjectType({
         sizeOne: { type: GraphQLString },
         sizeTwo: { type: GraphQLString },
         thickness: { type: GraphQLString },
-        slabPrice: { type: GraphQLString },
+        priceSlab: { type: GraphQLString },
         priceSqft: { type: GraphQLString },
         block: { type: GraphQLString },
         orderedStatus: { type: GraphQLString },
@@ -86,9 +86,9 @@ const mutation = new GraphQLObjectType({
         qrCode: { type: GraphQLString },
         images: { type: new GraphQLList(ImageInputType)}
       },
-      resolve(parentValue, { id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, slabPrice, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
+      resolve(parentValue, { id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images }){
         
-        return Slab.updateSlab(id, material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, slabPrice, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
+        return Slab.updateSlab(id, material[0].id, color[0].id, supplier[0].id, grade[0].name, finish[0].name, location[0].id, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images)
         
       }
     },
@@ -100,7 +100,7 @@ const mutation = new GraphQLObjectType({
         url: { type: GraphQLString }
       },
       resolve(parentValue, { id, images, url }){
-        
+
         return Slab.deleteSlabImage( id, images, url )
         
       }

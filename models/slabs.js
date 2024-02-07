@@ -98,7 +98,7 @@ const Slabs = new Schema(
     timestamps: true
 })
 
-Slabs.statics.createSlab = async function(material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, slabPrice, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images){
+Slabs.statics.createSlab = async function(material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images){
   
   let object = new Object({
     material: material,
@@ -111,7 +111,7 @@ Slabs.statics.createSlab = async function(material, color, supplier, grade, fini
     sizeOne: sizeOne,
     sizeTwo: sizeTwo,
     thickness: thickness,
-    slabPrice: slabPrice,
+    priceSlab: priceSlab,
     priceSqft: priceSqft,
     block: block,
     orderedStatus: orderedStatus,
@@ -142,7 +142,7 @@ Slabs.statics.createSlab = async function(material, color, supplier, grade, fini
 
 }
 
-Slabs.statics.updateSlab = async function(id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, slabPrice, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images){
+Slabs.statics.updateSlab = async function(id, material, color, supplier, grade, finish, location, quantity, sizeOne, sizeTwo, thickness, priceSlab, priceSqft, block, orderedStatus, receivedStatus, deliveredStatus, lotNumber, qrCode, images){
   
   let object = new Object({
     material: material,
@@ -155,7 +155,7 @@ Slabs.statics.updateSlab = async function(id, material, color, supplier, grade, 
     sizeOne: sizeOne,
     sizeTwo: sizeTwo,
     thickness: thickness,
-    slabPrice: slabPrice,
+    priceSlab: priceSlab,
     priceSqft: priceSqft,
     block: block,
     orderedStatus: orderedStatus,

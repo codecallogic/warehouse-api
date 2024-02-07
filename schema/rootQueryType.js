@@ -105,21 +105,10 @@ const RootQuery = new GraphQLObjectType({
       },
       async resolve(parentValue, { id, token }, context ) {  
         
-        // console.log(await Slab.find({}).populate(['material', 'color', 'supplier', 'location']))
-        
         return await Slab.find({}).populate(['material', 'color', 'supplier', 'location'])
         
       }
     }
-    // users: {
-    //   type: new GraphQLList(UserType),
-    //   args: {
-    //     id: { type: new GraphQLNonNull(GraphQLID) }
-    //   },
-    //   async resolve(parentValue, { id }, context ) {
-    //     return await User.find({}).populate([{ path: 'years', populate: { path: 'teams', populate: { path: 'allocations', model: 'Allocation' } }}, { path: 'users' }]).then( item => item )
-    //   }
-    // }
   })
 });
 
