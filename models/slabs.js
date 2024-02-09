@@ -13,9 +13,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const { GraphQLError } = require('graphql')
 
-//// HELPERS
-const { extractUUIDFromS3URL } = require('../helpers/apis/main')
-
 const Slabs = new Schema(
 {
   material: [{
@@ -206,6 +203,44 @@ Slabs.statics.deleteSlabImage = async function(id, images, itemToDelete){
     let updateSlab      = await this.findByIdAndUpdate(id, { images: newArray }, { new: true })
     
     return { message: 'Image deleted'}
+    
+  } catch (error) {
+    console.log(error)
+    throw new GraphQLError(error.message, {
+      extensions: {
+        code: 'INTERNAL_SERVER_ERROR',
+      },
+    });
+  }
+  
+}
+
+Slabs.statics.deleteSlab = async function( id ){
+
+  try {
+    
+    const slab = await this.findById(id)
+
+    if(slab.images.length > 0){
+      const updatedPromises = await Promise.all(slab.images.map(async (itemToDelete, idx) => {
+        let location = itemToDelete.url.split("/next-s3-uploads")[1];
+        location = 'next-s3-uploads' + location;
+
+        let params = {
+          Bucket: 'fabworkflow-inventory', 
+          Key: location
+        }
+        
+        S3.deleteObject(params, (err, data) => {
+          console.log(err)
+          if (err) return { message: err }
+        });
+      }))   
+    }
+
+    const deleteSlab = await this.findByIdAndDelete(id)
+    
+    return { message: 'Slab deleted'}
     
   } catch (error) {
     console.log(error)
