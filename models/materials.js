@@ -43,10 +43,6 @@ Material.statics.createMaterial = async function( name, description ){
 
 Material.statics.updateMaterial = async function( id, name, description ){
   
-  console.log(id)
-  console.log(name)
-  console.log(description)
-  
   let object = new Object({
     name: name,
     description: description
@@ -76,7 +72,7 @@ Material.statics.deleteMaterial = async function( id ){
 
     const deleteMaterial = await this.findByIdAndDelete(id)
     
-    return { message: 'Remnant deleted'}
+    return { message: 'Material deleted'}
     
   } catch (error) {
     console.log(error)

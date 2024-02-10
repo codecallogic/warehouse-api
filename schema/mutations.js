@@ -22,6 +22,9 @@ const Product = require('../models/products')
 const Remnant = require('../models/remnants')
 const Material = require('../models/materials')
 const Color = require('../models/colors')
+const Location = require('../models/locations')
+const Brand = require('../models/brand')
+const Category = require('../models/category')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -329,6 +332,108 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id }){
 
         return Color.deleteColor( id )
+        
+      }
+    },
+    newLocation: {
+      type: MessageType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { name }){
+        
+        return Location.createLocation( name )
+        
+      }
+    },
+    updateLocation: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name }){
+        
+        return Location.updateLocation( id, name )
+        
+      }
+    },
+    deleteLocation: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Location.deleteLocation( id )
+        
+      }
+    },
+    newBrand: {
+      type: MessageType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { name }){
+        
+        return Brand.createBrand( name )
+        
+      }
+    },
+    updateBrand: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name }){
+        
+        return Brand.updateBrand( id, name )
+        
+      }
+    },
+    deleteBrand: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Brand.deleteBrand( id )
+        
+      }
+    },
+    newCategory: {
+      type: MessageType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { name }){
+        
+        return Category.createCategory( name )
+        
+      }
+    },
+    updateCategory: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name }){
+        
+        return Category.updateCategory( id, name )
+        
+      }
+    },
+    deleteCategory: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Category.deleteCategory( id )
         
       }
     },
