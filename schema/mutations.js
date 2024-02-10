@@ -21,6 +21,7 @@ const Slab = require('../models/slabs')
 const Product = require('../models/products')
 const Remnant = require('../models/remnants')
 const Material = require('../models/materials')
+const Color = require('../models/colors')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -294,6 +295,40 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id }){
 
         return Material.deleteMaterial( id )
+        
+      }
+    },
+    newColor: {
+      type: MessageType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { name }){
+        
+        return Color.createColor( name )
+        
+      }
+    },
+    updateColor: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name }){
+        
+        return Color.updateColor( id, name )
+        
+      }
+    },
+    deleteColor: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Color.deleteColor( id )
         
       }
     },
