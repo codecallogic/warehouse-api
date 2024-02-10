@@ -3,7 +3,6 @@ const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLList } =
 
 //// TYPES
 const UserType                = require('../types/userType')
-const SlabType                = require('../types/slabType')
 const MaterialInputType       = require('../types/materiaInputType')
 const ColorInputType          = require('../types/colorInputType')
 const SupplierInputType       = require('../types/supplierInputType')
@@ -20,6 +19,8 @@ const CategoryInputType       = require('../types/categoryInputType')
 const User = require('../models/user')
 const Slab = require('../models/slabs')
 const Product = require('../models/products')
+const Remnant = require('../models/remnants')
+const Material = require('../models/materials')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -182,6 +183,117 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id }){
 
         return Product.deleteProduct( id )
+        
+      }
+    },
+    newRemnant: {
+      type: MessageType,
+      args: {
+        material: { type: new GraphQLList(MaterialInputType) },
+        color: { type: new GraphQLList(ColorInputType) },
+        name: { type: GraphQLString },
+        shape: { type: GraphQLString },
+        l1: { type: GraphQLString },
+        w1: { type: GraphQLString },
+        l2: { type: GraphQLString },
+        w2: { type: GraphQLString },
+        notes: { type: GraphQLString },
+        lot: { type: GraphQLString },
+        bundle: { type: GraphQLString },
+        supplierRef: { type: GraphQLString },
+        bin: { type: GraphQLString },
+        qrCode: { type: GraphQLString },
+        images: { type: new GraphQLList(ImageInputType)}
+      },
+      resolve(parentValue, { material, color, name, shape, l1, w1, l2, w2, notes, lot, bundle, supplierRef, bin, qrCode, images }){
+        
+        return Remnant.createRemnant( material[0] ? material[0].id : '', color[0] ? color[0].id : '', name, shape, l1, w1, l2, w2, notes, lot, bundle, supplierRef, bin, qrCode, images )
+        
+      }
+    },
+    updateRemnant: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        material: { type: new GraphQLList(MaterialInputType) },
+        color: { type: new GraphQLList(ColorInputType) },
+        name: { type: GraphQLString },
+        shape: { type: GraphQLString },
+        l1: { type: GraphQLString },
+        w1: { type: GraphQLString },
+        l2: { type: GraphQLString },
+        w2: { type: GraphQLString },
+        notes: { type: GraphQLString },
+        lot: { type: GraphQLString },
+        bundle: { type: GraphQLString },
+        supplierRef: { type: GraphQLString },
+        bin: { type: GraphQLString },
+        qrCode: { type: GraphQLString },
+        images: { type: new GraphQLList(ImageInputType)}
+      },
+      resolve(parentValue, { id, material, color, name, shape, l1, w1, l2, w2, notes, lot, bundle, supplierRef, bin, qrCode, images }){
+        
+        return Remnant.updateRemnant( id, material[0] ? material[0].id : '', color[0] ? color[0].id : '', name, shape, l1, w1, l2, w2, notes, lot, bundle, supplierRef, bin, qrCode, images )
+        
+      }
+    },
+    deleteRemnantImage: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        images: { type: new GraphQLList(ImageInputType)},
+        url: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, images, url }){
+
+        return Remnant.deleteRemnantImage( id, images, url )
+        
+      }
+    },
+    deleteRemnant: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Remnant.deleteRemnant( id )
+        
+      }
+    },
+    newMaterial: {
+      type: MessageType,
+      args: {
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+      },
+      resolve(parentValue, { name, description }){
+        
+        return Material.createMaterial( name, description )
+        
+      }
+    },
+    updateMaterial: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name, description }){
+
+        return Material.updateMaterial( id, name, description )
+        
+      }
+    },
+    deleteMaterial: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Material.deleteMaterial( id )
         
       }
     },

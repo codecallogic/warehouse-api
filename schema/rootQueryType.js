@@ -13,6 +13,7 @@ const BrandType               = require('../types/brandType')
 const CategoryType            = require('../types/brandType')
 const ModelType               = require('../types/modelType')
 const ProductType             = require('../types/productType')
+const RemnantType             = require('../types/remnantType')
 
 //// DATA MODELS
 const User                    = require('../models/user')
@@ -25,6 +26,7 @@ const Brand                   = require('../models/brand')
 const Category                = require('../models/category')
 const Model                   = require('../models/model')
 const Product                 = require('../models/products')
+const Remnant                 = require('../models/remnants')
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -162,6 +164,18 @@ const RootQuery = new GraphQLObjectType({
       async resolve(parentValue, { id, token }, context ) {  
         
         return await Product.find({}).populate(['brand', 'model', 'category', 'color', 'location'])
+        
+      }
+    },
+    allRemnants: {
+      type: new GraphQLList(RemnantType),
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        token: { type: GraphQLString }
+      },
+      async resolve(parentValue, { id, token }, context ) {  
+        
+        return await Remnant.find({}).populate(['material', 'color'])
         
       }
     }
