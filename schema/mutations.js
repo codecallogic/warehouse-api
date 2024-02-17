@@ -16,15 +16,16 @@ const ModelInputType          = require('../types/modelInputType')
 const CategoryInputType       = require('../types/categoryInputType')
 
 //// DATA MODELS
-const User = require('../models/user')
-const Slab = require('../models/slabs')
-const Product = require('../models/products')
-const Remnant = require('../models/remnants')
-const Material = require('../models/materials')
-const Color = require('../models/colors')
-const Location = require('../models/locations')
-const Brand = require('../models/brand')
-const Category = require('../models/category')
+const User                    = require('../models/user')
+const Slab                    = require('../models/slabs')
+const Product                 = require('../models/products')
+const Remnant                 = require('../models/remnants')
+const Material                = require('../models/materials')
+const Color                   = require('../models/colors')
+const Location                = require('../models/locations')
+const Brand                   = require('../models/brand')
+const Category                = require('../models/category')
+const Model                   = require('../models/model')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -434,6 +435,40 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id }){
 
         return Category.deleteCategory( id )
+        
+      }
+    },
+    newModel: {
+      type: MessageType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { name }){
+        
+        return Model.createModel( name )
+        
+      }
+    },
+    updateModel: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, name }){
+        
+        return Model.updateModel( id, name )
+        
+      }
+    },
+    deleteModel: {
+      type: MessageType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parentValue, { id }){
+
+        return Model.deleteModel( id )
         
       }
     },
